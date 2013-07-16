@@ -1,0 +1,39 @@
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+dev.copy('title.png', png)
+dev.copy('title.png')
+dev.copy('title.png', png)
+dev.copy(png, 'title.png')
+dev.off()
+dev.copy(png, 'title2.png')
+dev.off()
+getwd()
+?par
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+dev.copy(png, )
+dev.copy(png, 'title.png')
+dev.off()
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+?par
+?png
+args(png)
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+png("~/Dev/dcop-bachelor-thesis/thesis/section-results/figures/title2.png",
+summary(bg)
+plot(simplify(g), vertex.color=rainbow(14), vertex.label=NA, edge.curved=T, vertex.size=3, edge.width=0.25, vertex.frame.color=NA)
+png("~/Dev/dcop-bachelor-thesis/thesis/section-results/figures/title2.png",
+width=800,
+height=800,
+bg="white")
+plot(simplify(g), vertex.color=rainbow(14), vertex.label=NA, edge.curved=T, vertex.size=3, edge.width=0.25, vertex.frame.color=NA)
+dev.off()
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
+base::source("/tmp/r-plugin-robin/Rsource-1182-titlepage.R")
