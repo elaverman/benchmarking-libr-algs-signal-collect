@@ -1,4 +1,4 @@
-## Benchmarking Algorithms for Distributed Constraints Optimization in Signal/Collect ##
+## Benchmarking Algorithms for Distributed Constraint Optimization in Signal/Collect ##
 
 This repository includes all code that was used to evaluate the various local iterative best-response algorithms presented in this thesis.
 
