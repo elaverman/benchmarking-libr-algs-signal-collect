@@ -16,25 +16,27 @@
  *  limitations under the License.
  */
 
+/*
+ * Weighted regret matching with inertia
+ */
+
+
 package com.signalcollect.dcopthesis.libra
+
 
 import com.signalcollect.dcopthesis._
 import com.signalcollect.Vertex
 import scala.util.Random
 import com.signalcollect.dcopthesis.libra.components._
 
-/**
- * User: robin
- * Date: 6/9/13
- * Time: 11:42 AM
- * To change this template use File | Settings | File Templates.
- */
+
 abstract class WRMIVertex(newId: Int, newState: Int, newDomain: Array[Int], val inertia: Double)
   extends ColorConstrainedVertex[Int,Int](newId, newState, newDomain)
   with FloodSchedule
   with DiscountedRegretTarget[Int]
   with CompleteSearch[Int]
   with ArgmaxBIDecision[Int]
+
 
 class WRMIVertexBuilder(
     randomInitialState: Boolean,

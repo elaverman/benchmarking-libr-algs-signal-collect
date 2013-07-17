@@ -17,7 +17,9 @@
  *
  */
 
+
 package com.signalcollect.dcopthesis.libra.components
+
 
 /**
  * A class to hold information about the states a neighbouring vertex has chosen in its past.

@@ -18,7 +18,13 @@
 
 package com.signalcollect.dcopthesis.libra
 
+/*
+ * Utility functions that may be shared across multiple algorithms
+ */
 object Util {
+  /*
+   * Get the maximal values that are equal to each other.
+   */
   def maxValuesBy[T : Ordering](elems: Iterable[T]): Iterable[T] = {
     def maxValues(xss: List[T], currentMax: List[T]): List[T] = xss match {
       case Nil => currentMax
@@ -39,7 +45,8 @@ object Util {
     maxValues(elems.toList, List())
   }
 
-  /* Similar to
+  /* Generate the cartesian product of multiple sets (represented as traversables).
+   * Similar to
    * A x B x C = { (a1, b1, c1), ..., (an, bn, cn) }
    * but with Seqs instead of Sets
    */

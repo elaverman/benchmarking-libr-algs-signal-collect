@@ -29,7 +29,7 @@ import math.{max}
 
 /**
  * The rule with which to pick a new state from a list of (State, Utility)-tuples.
- * NOTE: The current state is special to many decision rules. This is why it is a seperate argument.
+ * NOTE: The current state is special to many decision rules. This is why it is a separate argument.
  * @tparam State A vertex' state
  */
 trait DecisionRule[State] {
@@ -83,6 +83,7 @@ trait ArgmaxBDecision[State] extends DecisionRule[State] {
   }
 }
 
+
 /**
  * Just like argmaxB: If there are states that have the same utility as the one of the current state,
  * the new state gets randomly chosen from this set of best states.
@@ -100,6 +101,7 @@ trait ArgmaxBIDecision[State] extends ArgmaxBDecision[State] {
     else argmaxBDecision
   }
 }
+
 
 trait SimulatedAnnealingDecision[State] extends DecisionRule[State] {
   // Time counter used for calculating temperature
@@ -140,6 +142,7 @@ trait SimulatedAnnealingDecision[State] extends DecisionRule[State] {
     st
   }
 }
+
 
 trait LogisticDecision[State] extends DecisionRule[State] {
   import scala.math.{pow, E}
@@ -193,7 +196,6 @@ trait LogisticDecision[State] extends DecisionRule[State] {
 }
 
 
-
 trait LinearProbability[State] extends DecisionRule[State] {
 
   val rand = Random
@@ -228,7 +230,6 @@ trait LinearProbability[State] extends DecisionRule[State] {
     else candidateState.get._1
   }
 }
-
 
 
 /**

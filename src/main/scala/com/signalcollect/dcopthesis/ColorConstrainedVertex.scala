@@ -18,13 +18,15 @@
 
 package com.signalcollect.dcopthesis
 
+
 import com.signalcollect.DataGraphVertex
 import scala.util.Random
 import com.signalcollect.configuration.ExecutionMode
 import com.signalcollect.Vertex
 import com.signalcollect.dcopthesis.libra.components.{DecisionRule, TargetFunction, ProspectiveStates, AdjustmentSchedule}
 
-//Takes vertex id, constraints for the vertex with that id and the domain of the variable represented by the vertex.
+
+// Takes vertex id, constraints for the vertex with that id and the domain of the variable represented by the vertex.
 trait VertexBuilder
   extends Function2[Int, Array[Int], Vertex[Any, _]]
   with Serializable {
@@ -32,6 +34,12 @@ trait VertexBuilder
   def apply(id: Int, domain: Array[Int]): Vertex[Any, _]
 }
 
+
+/*
+ * The abstract base class for DCOP vertices.
+ * Three methods have to be implemented by concrete sub classes.
+ * Many convenience methods are implemented on top of these abstract methods.
+ */
 abstract class ConstrainedVertex[Id, State](
     newId: Id,
     initialState: State,
@@ -70,11 +78,16 @@ abstract class ConstrainedVertex[Id, State](
     case otherwise => false
   }
 
+  
+  /*
+   * Return a map of vertexId => most recent signal recieved.
+   */
   def getNeighbourConfigs: Map[Any, Signal] = {
     val signals: Map[Any, Signal] = mostRecentSignalMap.toMap // convert to immutable
     signals map { case (edgeId, signal) => outgoingEdges(edgeId).targetId -> signal}
   }
 
+  
   def existsBetterStateUtility: Boolean = {
     !(domain map utility filter { _ > currentUtility }).isEmpty
   }
@@ -84,6 +97,11 @@ abstract class ConstrainedVertex[Id, State](
   def constraintsCount: Int = edgeCount
 }
 
+
+/*
+ * The base class for all vertices used in this thesis.
+ * This class includes the default implementations of collect.
+ */
 abstract class ColorConstrainedVertex[Id, State](
     newId: Id,
     initialState: State,
@@ -102,20 +120,7 @@ abstract class ColorConstrainedVertex[Id, State](
 
     // If the algorithm should even bother to compute a new state
     val stateToReturn = if (shouldComputeNewState) {
-//      var debugMsg = "-----------------------------------\n"
-//      debugMsg += s"Vertex $id currently in state $state\n"
-//      debugMsg += s"I currently satisfy $currentUtility of $bestPossibleUtility\n"
-//      debugMsg += s"This is a ratio of: ${currentUtility.toDouble/bestPossibleUtility}\n"
-//      debugMsg += s"My neighbors look like this: ${getNeighbourConfigs}\n"
-
-      //println(s"vertex $id was chosen at step $stepCounter")
-
       val newState = chooseNewState()
-
-//        var debugMsg = s"I vertex $id at step $stepCounter chose the move: $state to $newState"
-//      println(debugMsg)
-
-
       newState
     } else {
       state
@@ -124,6 +129,7 @@ abstract class ColorConstrainedVertex[Id, State](
     stateToReturn
   }
 
+  // A hook to use if some procedures have to be executed before a collect step.
   def doBeforeCollect { () }
 
   def chooseNewState: () => State = { () =>
@@ -140,22 +146,18 @@ abstract class ColorConstrainedVertex[Id, State](
     // Change the vertex' state to the newly chosen one.
     chosenState
   }
-
+  
   def satisfiesConstraintsWith(newState: State): Boolean = {
     // TODO: This map is empty in the beginning which wrongly means that the constraints are satisfied
     if (getNeighbourConfigs.isEmpty) false
     else (getNeighbourConfigs filter { _._2 == newState }).isEmpty
   }
 
-  // Default case for graph coloring
+  // Default utility for graph coloring
   override def utility: State => Utility = st => numberSatisfiedWith(st).toDouble
 
   def numberSatisfiedWith(newState: State): Int = {
-    val satisfied = (getNeighbourConfigs filter { _._2 != newState }).size
-//    var debugMsg = ""
-//    debugMsg += s"I, vertex $id, satisfy $satisfied constraints with new State $newState and my neighborconfig ${getNeighbourConfigs}"
-//    println(debugMsg)
-    satisfied
+    (getNeighbourConfigs filter { _._2 != newState }).size
   }
 
   def bestPossibleUtility: Double = constraintsCount.toDouble

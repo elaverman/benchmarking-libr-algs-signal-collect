@@ -1,8 +1,7 @@
 package com.signalcollect.dcopthesis.libra
 
 import org.scalatest.{BeforeAndAfter, FunSpec}
-import com.signalcollect.dcopthesis.Util
-import com.signalcollect.dcopthesis.MGMVertex.MGMSignal
+import com.signalcollect.dcopthesis.libra.MGMVertex.MGMSignal
 
 /**
  * Created with IntelliJ IDEA.

@@ -16,20 +16,20 @@
  *  limitations under the License.
  */
 
+/*
+ * joint strategy fictitious play with inertia
+ */
+
+
 package com.signalcollect.dcopthesis.libra
+
 
 import com.signalcollect.dcopthesis.{VertexBuilder, ColorConstrainedVertex}
 import com.signalcollect.dcopthesis.libra.components._
 import scala.util.Random
 import com.signalcollect.Vertex
 
-/**
- * Created with IntelliJ IDEA.
- * User: robin
- * Date: 6/9/13
- * Time: 11:44 AM
- * To change this template use File | Settings | File Templates.
- */
+
 class JSFPIVertex(
     newId: Int,
     initialState: Int,
@@ -41,6 +41,7 @@ class JSFPIVertex(
   with JointFictiousPlayTarget[Int]
   with FloodSchedule
 
+  
 class JSFPIVertexBuilder(
     randomInitialState: Boolean,
     inertia: Double)

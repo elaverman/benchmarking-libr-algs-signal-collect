@@ -16,13 +16,19 @@
  *  limitations under the License.
  */
 
+/*
+ * maximum-gain weighted regret matching with inertia
+ */
+
 
 package com.signalcollect.dcopthesis.libra
 
-import com.signalcollect.dcopthesis.{VertexBuilder, MGMVertex}
+
+import com.signalcollect.dcopthesis.{VertexBuilder}
 import com.signalcollect.dcopthesis.libra.components._
 import com.signalcollect.Vertex
 import scala.util.Random
+
 
 class MGMWRMIVertex(
     newId: Int,
@@ -35,6 +41,7 @@ class MGMWRMIVertex(
   with CompleteSearch[Int]
   with FloodSchedule
 
+  
 class MGMWRMIVertexBuilder(
     randomInitialState: Boolean,
     fadingMemory: Double)

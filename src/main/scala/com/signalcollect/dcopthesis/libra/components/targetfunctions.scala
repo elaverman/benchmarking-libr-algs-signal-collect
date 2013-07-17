@@ -17,9 +17,12 @@
  *
  */
 
+
 package com.signalcollect.dcopthesis.libra.components
 
+
 import com.signalcollect.dcopthesis._
+
 
 /**
  * The basic type of a TargetFunction-Mixin
@@ -42,12 +45,14 @@ trait TargetFunction[State] {
   }
 }
 
+
 /**
  * This type is the default implementation for TargetFunction and exists solely
  * for the purpose of a more consistent naming scheme.
  * @tparam State A vertex' state
  */
 trait MapUtilityTarget[State] extends TargetFunction[State]
+
 
 /**
  * This is simply a version of MapUtility where the DELTA-Utility is computed.
@@ -59,6 +64,7 @@ trait DeltaUtilityTarget[State] extends TargetFunction[State] {
   def state: State // the current state
   override def evaluate: State => (State, Payoff) = st => (st, utility(st) - utility(state))
 }
+
 
 /**
  * ExpectedPayoff
@@ -99,22 +105,6 @@ trait ExpectedPayoffTarget[State] extends TargetFunction[State] {
 
     val expectedPayoff = individualPayoffs.sum
 
-//      val neighborProbabilities = for (neighbourId <- neighbourIds) yield {
-//        // the utility of this candidate state times the probability that this neighbour isn't in this state
-//        neighbourHistories.getStateFrequency(neighbourId, st).getOrElse(0.0)
-//      }
-//
-//      val configurationProbability = neighborProbabilities.product
-//
-//      val expectedPayoff = utility(st) * (1 - configurationProbability)
-
-//    val individualPayoffs = for (neighbourId <- neighbourIds) yield {
-//      // the utility of this candidate state times the probability that this neighbour isn't in this state
-//      utility(st) * (1 - neighbourHistories.getStateFrequency(neighbourId, st).getOrElse(0.0))
-//    }
-//    val payOff = individualPayoffs.sum[Double]
-//    //    var debugMsg = s"Got payoff: $payOff for State $st with NeighbourHistory ${neighbourHistories.toString}"
-//    //    println(debugMsg)
     (st, expectedPayoff)
   }
 }
@@ -200,6 +190,7 @@ trait FictiousPlayTarget[State] extends TargetFunction[State] {
   }
 }
 
+
 trait DiscountedRegretTarget[State] extends TargetFunction[State] {
   import scala.math.max
   val fadingMemory: Double // if == 0, only the current regret counts
@@ -211,9 +202,6 @@ trait DiscountedRegretTarget[State] extends TargetFunction[State] {
 
 
   override def evaluate: (State) => (State, Payoff) = { st =>
-    if (stepCounter > 4) {
-      "asdf"
-    }
     // compute the current regret for not changing to state st
     val currentRegret = utility(st) - utility(state)
     // take fading memory into account

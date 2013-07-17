@@ -19,6 +19,7 @@
 
 package com.signalcollect.dcopthesis.libra.components
 
+
 /**
  * Holder object for updating averages
  */
@@ -28,6 +29,7 @@ case class Average private (val value: Double, age: Int) {
     Average(newAvgValue, age + 1)
   }
 }
+
 
 object Average {
   def create(newValue: Double) = Average(newValue, 1)

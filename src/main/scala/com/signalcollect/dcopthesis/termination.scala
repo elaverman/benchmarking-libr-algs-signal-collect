@@ -1,3 +1,22 @@
+/*
+ *  @author Robin Hafen
+ *
+ *  Copyright 2012 University of Zurich
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package com.signalcollect.dcopthesis
 
 
@@ -7,13 +26,15 @@ import com.signalcollect.Vertex
 import au.com.bytecode.opencsv.CSVWriter
 
 
+/*
+ * The termination condition used in the evaluation of the algorithms.
+ */
 class ThesisTerminationCondition(checkInterval: Int)
   extends GlobalTerminationCondition(
       aggregationOperation = new ThesisBenchmarkStatsAggregation,
       aggregationInterval = checkInterval) {
 
   override def shouldTerminate(stats: ThesisBenchmarkStats): Boolean = {
-//    println(s"[info] Termination check, stats: $stats")
 
     // Global logging
     GlobalStats.utilityRatios.append(stats.utilityWithLastState/stats.bestPossibleUtility)
@@ -23,32 +44,26 @@ class ThesisTerminationCondition(checkInterval: Int)
 
     stats match {
       case ThesisBenchmarkStats(util,bestUtil,_,_) if util == bestUtil => {
-//        println(s"[info] Global optimum found.\n $stats")
         
         if (GlobalStats.timeToOptimum == -1) {
-          // shouldn't be necessary since algorithm gets terminated anyway.
-          // just to be safe
+          // Shouldn't be necessary since algorithm gets terminated anyway.
           GlobalStats.timeToOptimum = timeUntilNow
         }
         if (GlobalStats.timeToNashEquilibrium == -1) {
-          // value has never been set before, so
-          // this is the first time a nash eq has been encountered
+          // Value has never been set before, so this is the first time a Nash eq. has been encountered.
           GlobalStats.timeToNashEquilibrium = timeUntilNow
         }
 
-        println("GLOBAL OPT FOUND")
         true // terminate if global optimum found, no point in searching further
       }
       case ThesisBenchmarkStats(util,bestUtil,true,_) => {
-//        println(s"[info] Nash equilibrium found\n $stats.")
-
         if (GlobalStats.timeToNashEquilibrium == -1) {
           // value has never been set before, so
-          // this is the first time a nash eq has been encountered
+          // this is the first time a Nash eq has been encountered
           GlobalStats.timeToNashEquilibrium = timeUntilNow
         }
 
-        false // don't terminate on nash eq. search for better solutions
+        false // don't terminate on Nash eq. search for better solutions
       }
       case other => false
     }
@@ -94,7 +109,7 @@ case class ThesisBenchmarkStats(
 
 
 /**
- * An aggregation operation which logs metrics about the graph.
+ * An aggregation operation which logs the metrics of the thesis.
  */
 class ThesisBenchmarkStatsAggregation extends AggregationOperation[ThesisBenchmarkStats] {
   def reduce(elements: Stream[ThesisBenchmarkStats]): ThesisBenchmarkStats = {
@@ -104,9 +119,6 @@ class ThesisBenchmarkStatsAggregation extends AggregationOperation[ThesisBenchma
   def extract(v: Vertex[_, _]): ThesisBenchmarkStats = v match {
       case vertex: ColorConstrainedVertex[_,_] => {
         val utilWithLastState = vertex.lastSignalState map { vertex.utility(_) } getOrElse 0.0
-        
-        val x = 2
-        val y = 3
         
         ThesisBenchmarkStats(
             utilWithLastState,
@@ -120,11 +132,8 @@ class ThesisBenchmarkStatsAggregation extends AggregationOperation[ThesisBenchma
 }
 
 
+// The following modules are not used anymore but may prove helpful in future evaluations.
 
-
-
-
-/* NOT USED ANYMORE */
 class GlobalUtility extends AggregationOperation[Double] {
   val neutralElement = 0.0
 

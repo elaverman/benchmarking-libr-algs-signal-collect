@@ -18,11 +18,5 @@
 
 package com.signalcollect.dcopthesis.libra
 
-/**
- * User: robin
- * Date: 5/29/13
- * Time: 2:15 PM
- * To change this template use File | Settings | File Templates.
- */
 package object libra {
 }

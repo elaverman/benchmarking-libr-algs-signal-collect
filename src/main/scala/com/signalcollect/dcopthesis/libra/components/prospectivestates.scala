@@ -17,9 +17,12 @@
  *
  */
 
+
 package com.signalcollect.dcopthesis.libra.components
 
+
 import scala.util.Random
+
 
 /**
  * The basic type of a ProspectiveStates-Mixin
@@ -30,6 +33,7 @@ import scala.util.Random
 trait ProspectiveStates[State] {
   def prospectiveStates(allStates: Set[State]): Seq[State]
 }
+
 
 /**
  * Yield all values in the domain WITHOUT the current one and randomize the results.
@@ -44,6 +48,7 @@ trait CompleteSearch[State] extends ProspectiveStates[State] {
   }
 }
 
+
 /**
  * Randomly choose a single state from the domain.
  * NOTE: This can be the same as the current one.
@@ -56,6 +61,7 @@ trait RandomStateSearch[State] extends ProspectiveStates[State] {
     Seq(states(rand.nextInt(states.size)))
   }
 }
+
 
 /**
  * Randomly choose values from the domain (can't be equal) until a

@@ -16,7 +16,18 @@
  *  limitations under the License.
  */
 
+/*
+ * Implementation of Distributed Simulated Annealing
+ * ( Arshad, Silaghi, 2003. "Distributed Simulated Annealing and comparison to DSA".
+ * In Proceedings of the 4th International Workshop on Distributed Contraint Reasoning, Acapulco, Mexico)
+ * The collect function chooses a new random state and chooses it if it improves over the old state,
+ * or, if it doesn't it still chooses it (for exploring purposes) with probability decreasing with time
+ */
+
+
 package com.signalcollect.dcopthesis.libra
+
+
 import com.signalcollect._
 import java.util.Random
 import com.signalcollect.dcopthesis.{VertexBuilder, ColorConstrainedVertex}
@@ -24,12 +35,14 @@ import DSANVertex.{TimeStep, UtilityDelta, Probability}
 import com.signalcollect.dcopthesis.libra.components.{SimulatedAnnealingDecision, MapUtilityTarget, CompleteSearch, ParallelRandomSchedule}
 import com.signalcollect.dcopthesis.libra.components.RandomStateSearch
 
-// Simple Type synonyms
+
+// Simple Type synonyms for easier identification
 object DSANVertex {
   type TimeStep = Int
   type UtilityDelta = Double
   type Probability = Double
 }
+
 
 class DSANVertexBuilder(
     randomInitialState: Boolean,
@@ -55,13 +68,6 @@ class DSANVertexBuilder(
   override def toString = s"DSAN p=$pSchedule c=$const"
 }
 
-/**
- * Implementation of Distributed Simulated Annealing
- * ( Arshad, Silaghi, 2003. "Distributed Simulated Annealing and comparison to DSA".
- *  In Proceedings of the 4th International Workshop on Distributed Contraint Reasoning, Acapulco, Mexico)
- * The collect function chooses a new random state and chooses it if it improves over the old state,
- * or, if it doesn't it still chooses it (for exploring purposes) with probability decreasing with time
- */
 class DSANVertex(id: Int, initialState: Int, newDomain: Array[Int], val p: Double, val const: Int, val k: Int)
   extends ColorConstrainedVertex[Int,Int](id, initialState, newDomain)
   with SimulatedAnnealingDecision[Int]

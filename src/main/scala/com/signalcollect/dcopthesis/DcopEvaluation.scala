@@ -24,6 +24,12 @@
 
 package com.signalcollect.dcopthesis
 
+
+/**
+ * This file includes the main evaluation program and its related resources.
+ */
+
+
 import com.signalcollect._
 import com.signalcollect.StateForwarderEdge
 import com.signalcollect.dcopthesis.libra._
@@ -40,7 +46,8 @@ import com.signalcollect.evaluation.resulthandling.ConsoleResultHandler
 import java.util.Calendar
 import com.signalcollect.dcopthesis.FileDialect._
 
-// Gets updated by aggregation
+
+// A global stats object that gets updated after each cycle.
 object GlobalStats {
   import scala.collection.mutable.ArrayBuffer
 
@@ -71,6 +78,10 @@ object GlobalStats {
   plot.addLegend("SOUTH")
 }
 
+
+/*
+ * The main program for evaluating algorithms.
+ */
 object DcopEvaluation extends App {
 
   val evalName = "dcopthesis benchmark run"
@@ -88,13 +99,14 @@ object DcopEvaluation extends App {
   /*
    * Execution parameters
    */
-  val repetitions = 5
-  val graphSize = 80
-  val graphSizes = List(graphSize)
-  val domainSizes = List(8)
-  val meanDegrees = List(14)
-  val numberOfGraphs = 50
+  val repetitions = 5 // how many repetitions to perform
+  val graphSize = 80 
+  val graphSizes = List(graphSize) // the graph's sizes (only one was used at a time)
+  val domainSizes = List(8) // the domain sizes (only one was used at a time)
+  val meanDegrees = List(14) // the mean degrees (once used for a graph provider)
+  val numberOfGraphs = 50 // the number of graphs on which the algorithms should be run
 
+  // The list of algorithms to be run
   val algorithmsList: List[VertexBuilder] = List(
 //    new TabuSearchVertexBuilder(randomInitialState=false, pSchedule=1.0, stepsToRemember=0),
 //    new TabuSearchVertexBuilder(randomInitialState=false, pSchedule=0.9, stepsToRemember=0),
@@ -133,38 +145,34 @@ object DcopEvaluation extends App {
 //    new DSANVertexBuilder(randomInitialState=false, pSchedule = 0.9, k = 2, const = 250),
 //    new DSANVertexBuilder(randomInitialState=false, pSchedule = 1, k = 2, const = 250)
       
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0, inertia=0.2),
-//      new ExpVertexBuilder(randomInitialState=false, inertia=0.2)
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.0),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.0),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.0),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.0),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.0),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.0),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0, inertia=0.2),
+//    new ExpVertexBuilder(randomInitialState=false, inertia=0.2)
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.0),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.0),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.0),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.0),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.0),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.0),
     
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.1),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.1),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.1),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.1),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.1),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.1)
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.1),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.1),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.1),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.1),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.1),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.1)
       
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.2),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.2),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.2),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.2),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.2),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.2)
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.4),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.4),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.4),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.4),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.4),
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.4)
-      
-      
-      
-      
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.2),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.2),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.2),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.2),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.2),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.2)
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.99, inertia=0.4),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.8,  inertia=0.4),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.6,  inertia=0.4),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.4,  inertia=0.4),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.2,  inertia=0.4),
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.0,  inertia=0.4)
       
 //    new MGMWRMIVertexBuilder(randomInitialState=false, fadingMemory=1.0),
 //    new MGMWRMIVertexBuilder(randomInitialState=false, fadingMemory=0.9),
@@ -244,7 +252,7 @@ object DcopEvaluation extends App {
 //    new JSFPIVertexBuilder(randomInitialState=false, inertia=0.1),
 //    new JSFPIVertexBuilder(randomInitialState=false, inertia=0)
 //    new BestResponseVertexBuilder(randomInitialState=false, 0.2),
-//    new BestResponseVertexBuilder(randomInitialState=false, 0.4), // best
+//    new BestResponseVertexBuilder(randomInitialState=false, 0.4),
 //    new BestResponseVertexBuilder(randomInitialState=false, 0.6),
 //    new BestResponseVertexBuilder(randomInitialState=false, 0.9),
 //    new BestResponseVertexBuilder(randomInitialState=false, 0.9875),
@@ -255,31 +263,33 @@ object DcopEvaluation extends App {
 
 //    new SAPVertexBuilder(randomInitialState=false, ηInitial=5.0, vertexIdsSchedule=(0 until graphSize)),
 //    new SAPVertexBuilder(randomInitialState=false, ηInitial=1.0, vertexIdsSchedule=(0 until graphSize)),
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.5, vertexIdsSchedule=(0 until graphSize)), // best
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.25, vertexIdsSchedule=(0 until graphSize)), // best
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.1, vertexIdsSchedule=(0 until graphSize)), // best
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.05, vertexIdsSchedule=(0 until graphSize)),// best
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.0, vertexIdsSchedule=(0 until graphSize)) // best
+//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.5, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.25, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.1, vertexIdsSchedule=(0 until graphSize)), 
+//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.05, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.0, vertexIdsSchedule=(0 until graphSize)) 
 //    new GSAPVertexBuilder(randomInitialState=false, vertexIds=(0 until graphSize), interval=10)
 
 
-//      new MGMVertexBuilder(randomInitialState=true)
-//      new DSANVertexBuilder(randomInitialState=true, pSchedule=1),
-//      new DSAVertexBuilder(randomInitialState=false, DSAVariant.B, pSchedule = 0.30),////0.15)
-//      new DSAVertexBuilder(randomInitialState=false, DSAVariant.B, pSchedule = 0.8)
-//      new SAPVertexBuilder(randomInitialState=false, ηInitial=1, vertexIdsSchedule=(0 until graphSize))
-//      new GSAPVertexBuilder(randomInitialState=false, vertexIds=(0 until graphSize))
-//      new WRMIVertexBuilder(randomInitialState=false, memory=0.99,  inertia=0.4)
-    new WRMIVertexBuilder(randomInitialState=false, memory=0.99,  inertia=0.4)
-//      new MGMWRMIVertexBuilder(randomInitialState=false, fadingMemory=0.9),
-//      new JSFPIVertexBuilder(randomInitialState=false, inertia=0.4)
-//      new TabuSearchVertexBuilder(randomInitialState=false, pSchedule=0.2, stepsToRemember=250)
+//    new MGMVertexBuilder(randomInitialState=true)
+//    new DSANVertexBuilder(randomInitialState=true, pSchedule=1),
+//    new DSAVertexBuilder(randomInitialState=false, DSAVariant.B, pSchedule = 0.30))
+//    new DSAVertexBuilder(randomInitialState=false, DSAVariant.B, pSchedule = 0.8)
+//    new SAPVertexBuilder(randomInitialState=false, ηInitial=1, vertexIdsSchedule=(0 until graphSize))
+//    new GSAPVertexBuilder(randomInitialState=false, vertexIds=(0 until graphSize))
+//    new WRMIVertexBuilder(randomInitialState=false, memory=0.99,  inertia=0.4)
+      new WRMIVertexBuilder(randomInitialState=false, memory=0.99,  inertia=0.4)
+//    new MGMWRMIVertexBuilder(randomInitialState=false, fadingMemory=0.9),
+//    new JSFPIVertexBuilder(randomInitialState=false, inertia=0.4)
+//    new TabuSearchVertexBuilder(randomInitialState=false, pSchedule=0.2, stepsToRemember=250)
   )
 
 
+  // The total number of runs to be executed in this evaluation run
   GlobalStats.totalNumberOfRuns = repetitions * graphSizes.size * domainSizes.size * meanDegrees.size * numberOfGraphs * algorithmsList.size
 
   /**
+   * How the evaluation procedure works:
    * For each configuration of an algorithm benchmark a DcopEvaluationRun is created.
    * All DcopEvualuationRuns get added to a job queue of fastEval, a EvaluationSuiteCreator object.
    * fastEvel creates for each DcopEvaluationRun a TorqueJob, which stores information about the job submission and JVM-Parameters etc.
@@ -346,6 +356,7 @@ object DcopEvaluation extends App {
             "graphNumber" -> graphNumber.toString
          )
 
+         // Add the job description to the list of jobs to be run
          fastEval.addJobForEvaluationAlgorithm(
            new DcopEvaluationRun(
              algorithm.toString,

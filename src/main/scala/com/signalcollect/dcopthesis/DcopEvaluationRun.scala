@@ -51,8 +51,6 @@ class DcopEvaluationRun(
     */
   }
 
-  //TODO: Cut the AdoptFileGraphGenerator: creating a graph instance to use in buildGraph, and adding edges and vertices for loadGraph
-
   def buildGraph = {
     graph = graphBuilder.build
   }

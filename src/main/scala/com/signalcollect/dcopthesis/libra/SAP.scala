@@ -1,4 +1,5 @@
 /*
+
  *  @author Robin Hafen
  *
  *  Copyright 2012 University of Zurich
@@ -17,15 +18,9 @@
  *
  */
 
-package com.signalcollect.dcopthesis.libra
-import com.signalcollect.dcopthesis.{VertexBuilder, ColorConstrainedVertex}
-import com.signalcollect.Vertex
-import scala.util.Random
-import com.signalcollect.dcopthesis.libra.components._
-
-
 /**
  * Spatial Adaptive Play
+ * 
  * The probability for each state is given by the Boltzmann distribution:
  * P_s(η) = e^(1/η * u(s))/∑(e^(1/η * u(s_i)))
  * where u(si) = utility(state i)
@@ -34,6 +29,17 @@ import com.signalcollect.dcopthesis.libra.components._
  * decision rule: boltzmann distribution
  * adjusment schedule: random sequential
  */
+
+
+package com.signalcollect.dcopthesis.libra
+
+
+import com.signalcollect.dcopthesis.{VertexBuilder, ColorConstrainedVertex}
+import com.signalcollect.Vertex
+import scala.util.Random
+import com.signalcollect.dcopthesis.libra.components._
+
+
 abstract class SAPVertex(
     newId: Int,
     initialState: Int,

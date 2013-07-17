@@ -17,9 +17,12 @@
  *
  */
 
+
 package com.signalcollect.dcopthesis.libra.components
 
+
 import com.signalcollect.configuration.ExecutionMode
+
 
 trait AdjustmentSchedule {
   val underlyingSignalCollectSchedule: ExecutionMode.Value
@@ -27,11 +30,13 @@ trait AdjustmentSchedule {
   def shouldComputeNewState: Boolean
 }
 
+
 trait FloodSchedule extends AdjustmentSchedule {
   override val underlyingSignalCollectSchedule = ExecutionMode.Synchronous
 
   override def shouldComputeNewState = true
 }
+
 
 trait ParallelRandomSchedule extends AdjustmentSchedule {
   val rand = scala.util.Random
@@ -45,6 +50,7 @@ trait ParallelRandomSchedule extends AdjustmentSchedule {
   }
 }
 
+
 trait AsyncRandomSchedule extends AdjustmentSchedule {
   val rand = scala.util.Random
   val p: Double
@@ -57,10 +63,12 @@ trait AsyncRandomSchedule extends AdjustmentSchedule {
   }
 }
 
+
 // == sync
 trait CompletelyParallelSchedule extends ParallelRandomSchedule {
   override val p = 1.0
 }
+
 
 trait SequentialRandomSchedule extends AdjustmentSchedule {
   var stepCounter: Int

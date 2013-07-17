@@ -16,19 +16,24 @@
  *  limitations under the License.
  */
 
+
 package com.signalcollect.dcopthesis.libra
+
 
 import com.signalcollect.dcopthesis._
 import com.signalcollect.Vertex
 import scala.util.Random
 import com.signalcollect.dcopthesis.libra.components._
 
+
 /**
- * Expected Payoff
- * The payoff for changing to a certain state depends on the historic frequencies of neighbouring states.
+ * Expected Payoff - not presented in thesis
+ * The payoff for changing to a certain state depends on the historic frequencies of neighboring states.
  * Vertex i's payoff of acquiring state si at time t is given by the SUM over all neighbours of their
  * probability not to be in state si times the utility the vertex would gain with state si.
  */
+
+
 class ExpPayoffVertex(
     newId: Int,
     initialState: Int,

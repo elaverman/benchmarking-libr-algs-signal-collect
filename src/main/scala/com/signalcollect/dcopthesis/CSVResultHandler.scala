@@ -18,6 +18,7 @@
 
 package com.signalcollect.dcopthesis
 
+
 import scala.collection.mutable.ArrayBuffer
 import com.signalcollect.nodeprovisioning.torque.ResultHandler
 import java.util.Calendar
@@ -25,14 +26,15 @@ import au.com.bytecode.opencsv.CSVWriter
 import java.io.FileWriter
 import java.io.File
 
-/**
- * Created with IntelliJ IDEA.
- * User: robin
- * Date: 6/18/13
- * Time: 1:27 PM
- * To change this template use File | Settings | File Templates.
- */
+
 object CSVResultHandler { 
+  /*
+   * A class representing keys in a map that can
+   * process the values they refer to.
+   * For example, if a key refers to a value with type String of the form:
+   * 1,2,3,4,5,6
+   * This class may be used to transform this string to a list.
+   */
   class ValExtractor(val key: String) {
     def extract(map: Map[String, String]): Option[Iterable[String]] = {
       map.get(key) match { 
@@ -53,6 +55,10 @@ object CSVResultHandler {
 
 import CSVResultHandler._
   
+
+/**
+ * A result handler that is used to save results of the benchmark in CSV form.
+ */
 class CSVResultHandler(val keysToLog: Iterable[ValExtractor],
                        val filename: Option[String] = None,
                        val shouldAppend: Boolean = true,

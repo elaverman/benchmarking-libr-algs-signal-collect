@@ -16,6 +16,10 @@
  *  limitations under the License.
  */
 
+/*
+ * The distributed stochastic algorithms
+ */
+
 package com.signalcollect.dcopthesis.libra
 
 import com.signalcollect._
@@ -30,6 +34,7 @@ object DSAVariant extends Enumeration {
 }
 
 import DSAVariant._
+
 
 class DSAVertexBuilder(randomInitialState: Boolean, variant: DSAVariant, pSchedule: Double)
   extends VertexBuilder {
@@ -68,6 +73,7 @@ class DSAVertexBuilder(randomInitialState: Boolean, variant: DSAVariant, pSchedu
 
   override def toString = s"DSA-$variant p=$pSchedule"
 }
+
 
 abstract class DSAVertex(id: Any, initialState: Int, possibleValues: Array[Int])
   extends ColorConstrainedVertex[Any,Int](id, initialState, possibleValues)

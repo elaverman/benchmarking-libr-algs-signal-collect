@@ -1,5 +1,5 @@
 /*
- *  @author Mihaela Verman, Philipp Stutz
+ *  @author Mihaela Verman, Philip Stutz
  *
  *  Copyright 2013 University of Zurich
  *
@@ -18,8 +18,10 @@
 
 package com.signalcollect.dcopthesis
 
+
 import com.signalcollect.GraphEditor
 import com.signalcollect.Edge
+
 
 trait ConstraintGraphProvider[Id, Signal] extends Serializable {
   def populate(graphEditor: GraphEditor[Id, Signal], vertexBuilder: VertexBuilder, constraintEdgeBuilder: (Int, Int) => Edge[Int]): Unit

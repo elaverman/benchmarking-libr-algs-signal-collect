@@ -18,12 +18,12 @@
 
 package com.signalcollect.dcopthesis
 
+
 import scala.collection.mutable.LinkedHashSet
 import scala.xml._
 import com.signalcollect.GraphEditor
 import com.signalcollect.Vertex
 import com.signalcollect.Edge
-import com.signalcollect.dcopthesis.Util._
 import java.io.File
 import java.io.PrintWriter
 import java.io.FileNotFoundException
@@ -34,14 +34,20 @@ object FileDialect extends Enumeration {
   val XMLFile, EdgeListFile = Value
 }
 
+
 import FileDialect._
 
-/** This GraphProvider constructs a graph with a given tightness.
+
+/**
+  * This GraphProvider constructs a graph with a given tightness by pruning a fully connected graph.
+  * It also provides facilities to load and save graphs from files.
   * @constructor Create a GraphProvider which constructs a graph via its populate method.
   * @param graphSize Number of nodes the graph should have.
   * @param meanDegree The mean degree the graph should have.
   * @param domainSize Number of different states that a vertex can take. A domain size of 10 would
+  * @param loadFrom Instead of generating a graph, load a file with a given dialect (XML or EdgeList).
   * result in a domain (0,1,2,3,4,5,6,7,8,9).
+  * @param saveTo Save the generated file to some file in XML format.
   */
 class BinaryConstraintGraphProvider(
     val graphSize: Int,
@@ -53,6 +59,8 @@ class BinaryConstraintGraphProvider(
 
   type Degree = Double
 
+  // To speed up the pruning process, this function defines how many edges should 
+  // be removed at each prune step.
   def numberToPrunePerStep(currentAvgDegree: Double) = {
     if (currentAvgDegree < meanDegree + 20) {
       1
@@ -61,6 +69,15 @@ class BinaryConstraintGraphProvider(
     }
   }
 
+  /* 
+   * Load a graph from an edge list.
+   * Edge lists have the format:
+   * 0 1
+   * 1 2
+   * 3 4
+   * ...
+   * where the numbers corresponed to the ids of vertices.
+   */
   def fromEdgeList(filename: String): (LinkedHashSet[Set[Int]], Degree) = {
     val undirectedEdges = LinkedHashSet[Set[Int]]()
     try {
@@ -77,6 +94,10 @@ class BinaryConstraintGraphProvider(
     (undirectedEdges, -1.0)
   }
 
+  /*
+   * Load a graph from a XML-file. These XML-files have to be in the same 
+   * format as the ones that this GraphProvider saves.
+   */
   def fromXML(filename: String): (LinkedHashSet[Set[Int]], Degree) = {
     val undirectedEdges = LinkedHashSet[Set[Int]]()
 
@@ -110,6 +131,10 @@ class BinaryConstraintGraphProvider(
     }
   }
 
+  
+  /*
+   * Save a graph to an XML file that can later be loaded.
+   */
   def toFile(undirectedEdges: LinkedHashSet[Set[Int]], actualDegree: Double, filename: String) {
     val graph =
       <graph size={ graphSize.toString } target-degree={ meanDegree.toString } actual-degree={ actualDegree.toString }>
@@ -129,6 +154,12 @@ class BinaryConstraintGraphProvider(
       pw.close
   }
 
+  
+  /*
+   * Prune a fully connected graph until it has a mean degree according to the one
+   * specified in the constructor.
+   * The actual degree may vary slightly and thus is returned as well.
+   */
   def computeEdgeList(): (LinkedHashSet[Set[Int]], Degree) = {
     import scala.util.Random
 
@@ -173,7 +204,7 @@ class BinaryConstraintGraphProvider(
     while (keepRemoving) {
       currentAvgDegree = computeAvgDegree(is, undirectedEdges)
       try {
-        numberToPrunePerStep(currentAvgDegree) times {
+        (1 to numberToPrunePerStep(currentAvgDegree)) foreach { _ =>
           removeRandomEdge(undirectedEdges)
         }
       } catch {
@@ -188,6 +219,9 @@ class BinaryConstraintGraphProvider(
     (undirectedEdges, currentAvgDegree)
   }
 
+  /*
+   * The populate method that has to be provided by all GraphProviders.
+   */
   def populate(graphEditor: GraphEditor[Any, Any],
                vertexBuilder: VertexBuilder,
                constraintEdgeBuilder: (Int, Int) => Edge[Int]): Unit = {
