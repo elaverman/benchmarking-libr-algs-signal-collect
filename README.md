@@ -1,5 +1,4 @@
-Benchmarking Algorithms for Distributed Constraints Optimization in Signal/Collect
-======================
+## Benchmarking Algorithms for Distributed Constraints Optimization in Signal/Collect ##
 
 This repository includes all code that was used to evaluate the various local iterative best-response algorithms presented in this thesis.
 
@@ -21,17 +20,17 @@ After that, the files that are necessary for import into eclipse can be generate
 Notable directories:
 
  - `results/`
- 
+
    The raw data obtained from the benchmark.
  - `graphs/`
- 
+
    The graphs on which the algorithms were run.
  - `Rscripts/`
- 
+
    Scripts for the R programming language that were used for data analysis, the creation of graphs, and the plotting of images.
-   
+
  - `lib/`
- 
+
    Unmanaged libraries. This folder includes Signal/Collect version 2.
 
 ### License
