@@ -16,14 +16,21 @@
  *  limitations under the License.
  */
 
-/*
- * Implementation of Distributed Simulated Annealing
- * ( Arshad, Silaghi, 2003. "Distributed Simulated Annealing and comparison to DSA".
- * In Proceedings of the 4th International Workshop on Distributed Contraint Reasoning, Acapulco, Mexico)
- * The collect function chooses a new random state and chooses it if it improves over the old state,
- * or, if it doesn't it still chooses it (for exploring purposes) with probability decreasing with time
- */
 
+/* 
+ * Implementation of Distributed Simulated Annealing
+ * 
+ * DSAN chooses a state that may be worse than its current state with
+ * a certain time-variant probability. The longer the algorithm runs, 
+ * smaller this probability gets.
+ * This behavior is implemented in the component SimulatedAnnealingDecision.
+ * Otherwise, DSAN uses a parallel random schedule.
+ * 
+ * Based on a description from:
+ *   Arshad, Silaghi, 2003. 
+ *   Distributed Simulated Annealing and comparison to DSA.
+ * 
+ */
 
 package com.signalcollect.dcopthesis.libra
 

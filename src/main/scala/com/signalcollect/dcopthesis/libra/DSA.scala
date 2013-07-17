@@ -16,8 +16,18 @@
  *  limitations under the License.
  */
 
-/*
- * The distributed stochastic algorithms
+
+/* 
+ * The distributed stochastic algorithms (synchronous and asynchronous).
+ * Only the synchronous variants are evaluated in this thesis.
+ * 
+ * DSA-A uses the decision rule argmaxA, whereas DSA-B uses argmaxB.
+ * All variants use a parallel random schedule.
+ * 
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
 
 package com.signalcollect.dcopthesis.libra
@@ -30,7 +40,7 @@ import com.signalcollect.dcopthesis.libra.components._
 
 object DSAVariant extends Enumeration {
   type DSAVariant = Value
-  val A, B, C, D, E, asyncA, asyncB = Value
+  val A, B, asyncA, asyncB = Value
 }
 
 import DSAVariant._

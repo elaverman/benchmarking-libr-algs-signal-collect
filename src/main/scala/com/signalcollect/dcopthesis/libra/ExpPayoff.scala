@@ -28,9 +28,18 @@ import com.signalcollect.dcopthesis.libra.components._
 
 /**
  * Expected Payoff - not presented in thesis
+ * 
  * The payoff for changing to a certain state depends on the historic frequencies of neighboring states.
  * Vertex i's payoff of acquiring state si at time t is given by the SUM over all neighbours of their
  * probability not to be in state si times the utility the vertex would gain with state si.
+ * 
+ * NOTE: This is not the "expected payoff". The naming stems from the fact that this algorithm
+ * was previously trying to calculate the expected payoff. 
+ * 
+ * Based loosely on a description of FP from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
 
 

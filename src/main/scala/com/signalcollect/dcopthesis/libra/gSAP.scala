@@ -16,8 +16,17 @@
  *  limitations under the License.
  */
 
+
 /*
  * The greedy spatial adaptive play algorithm
+ * 
+ * A greedy version of spatial adaptive play that uses a greedy argmaxA decision rule
+ * and -- like SAP -- a sequential random schedule.
+ * 
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
 
 

@@ -16,9 +16,25 @@
  *  limitations under the License.
  */
 
+
 /*
- * joint strategy fictitious play with inertia
+ * Joint strategy fictitious play with inertia
+ * 
+ * Vertices keep track of their neighbors' behavior. As shown in the paper mentioned below,
+ * this can be simplified to having each vertex remember the average utility for each state. 
+ * The main functionality can be found in the component: JointFictiousPlayTarget.
+ * 
+ * 
+ * Introduced in:
+ *   Marden, J. R., Arslan, G., and Shamma, J. S. (2009).
+ *   Joint strat- egy fictitious play with inertia for potential games.
+ *   
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
+
 
 
 package com.signalcollect.dcopthesis.libra

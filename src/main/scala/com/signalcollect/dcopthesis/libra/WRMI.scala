@@ -16,9 +16,23 @@
  *  limitations under the License.
  */
 
+
 /*
  * Weighted regret matching with inertia
+ * 
+ * All vertices keep track of the "regrets" for not having taken a certain state in the last cycle.
+ * 
+ * 
+ * Introduced in:
+ *   Marden, J. R., Arslan, G., and Shamma, J. S. (2007).
+ *   Regret based dynamics: convergence in weakly acyclic games.
+ *   
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
+
 
 
 package com.signalcollect.dcopthesis.libra

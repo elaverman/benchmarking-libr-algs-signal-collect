@@ -18,7 +18,8 @@
  *
  */
 
-/**
+
+/*
  * Spatial Adaptive Play
  * 
  * The probability for each state is given by the Boltzmann distribution:
@@ -27,7 +28,13 @@
  * η = temperature parameter
  * target function: immediate payoff
  * decision rule: boltzmann distribution
- * adjusment schedule: random sequential
+ * adjustment schedule: random sequential
+ * 
+ * 
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
 
 

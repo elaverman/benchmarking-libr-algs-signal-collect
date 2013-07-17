@@ -18,11 +18,17 @@
  */
 
 
-/**
+/*
  * Fictitious play -- not used in the benchmark since JSFP-I represents the same family
+ * 
  * The payoff for changing to a certain state depends on the historic frequencies of neighboring states.
  * Vertex i's payoff of acquiring state si at time t is given by the SUM over all neighbors of their
  * probability not to be in state si times the utility the vertex would gain with state si.
+ * 
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
 
 package com.signalcollect.dcopthesis.libra

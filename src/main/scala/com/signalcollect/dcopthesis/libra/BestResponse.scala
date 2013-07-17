@@ -18,8 +18,15 @@
  */
 
 /* 
- * The algorithm Best Response (also called Better Reply) with Inertia 
+ * The algorithm Best Response (BR) (also called Better Reply) with Inertia 
  * This algorithm isn't presented in the thesis due to being extremely similar to DSA-B
+ * 
+ * BR uses argmaxB with inertia, a flood schedule, and the immediate payoff target function (MapUtilityTarget).
+ * 
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
  */
 
 package com.signalcollect.dcopthesis.libra

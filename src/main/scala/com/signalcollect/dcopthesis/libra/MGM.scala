@@ -16,7 +16,23 @@
  *  limitations under the License.
  */
 
-/* maximum-gain messaging algorithm */
+
+/*
+ * Maximum-gain messaging algorithm
+ * 
+ * In this algorithm, vertices only collect if they could achieve the highest
+ * possible gain of all their neighbors.
+ * This special schedule is implemented by the functions signal and collect directly.
+ * 
+ * Introduced in:
+ *   Marden, J. R., Arslan, G., and Shamma, J. S. (2009).
+ *   Joint strat- egy fictitious play with inertia for potential games.
+ *   
+ * Based on a description from:
+ *   Chapman, A. C., Rogers, A., Jennings, N. R., and Leslie, D. S. (2011b).
+ *   A unifying framework for iterative approximate best-response algorithms
+ *   for distributed constraint optimization problems.
+ */
 
 
 package com.signalcollect.dcopthesis.libra

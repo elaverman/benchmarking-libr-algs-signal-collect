@@ -16,8 +16,19 @@
  *  limitations under the License.
  */
 
+
 /*
  * The distributed version of tabu search
+ * 
+ * The algorithm keeps track of the moves it made in the past.
+ * If a vertex wants to make a state change that it already did, the move is not permitted.
+ * An function called overruleTabuLust relaxes the tabu criterion.
+ * 
+ * 
+ * Based on a description from:
+ *   Nurmela, K. J. (1993).
+ *   Constructing combinatorial designs by local search. Citeseer.
+ *   
  */
 
 
