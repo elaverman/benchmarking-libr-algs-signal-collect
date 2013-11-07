@@ -44,11 +44,24 @@ trait ParallelRandomSchedule extends AdjustmentSchedule {
 
   override val underlyingSignalCollectSchedule = ExecutionMode.Synchronous
 
-  override def shouldComputeNewState = {
+  def shouldComputeNewState = {
     if (rand.nextDouble() <= p) true
     else false
   }
 }
+
+trait PageRankRandomSchedule extends AdjustmentSchedule {
+  val rand = scala.util.Random
+  def p: Double
+
+  override val underlyingSignalCollectSchedule = ExecutionMode.Synchronous
+
+  def shouldComputeNewState = {
+    if (rand.nextDouble() <= p) true
+    else false
+  }
+}
+
 
 
 trait AsyncRandomSchedule extends AdjustmentSchedule {

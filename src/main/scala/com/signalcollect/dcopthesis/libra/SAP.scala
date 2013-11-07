@@ -23,9 +23,9 @@
  * Spatial Adaptive Play
  * 
  * The probability for each state is given by the Boltzmann distribution:
- * P_s(η) = e^(1/η * u(s))/∑(e^(1/η * u(s_i)))
+ * P_s(eta) = e^(1/eta * u(s))/SUM(e^(1/eta * u(s_i)))
  * where u(si) = utility(state i)
- * η = temperature parameter
+ * eta = temperature parameter
  * target function: immediate payoff
  * decision rule: boltzmann distribution
  * adjustment schedule: random sequential
@@ -51,8 +51,8 @@ abstract class SAPVertex(
     newId: Int,
     initialState: Int,
     newDomain: Array[Int],
-    var η: Double,
-    val ηDecrement: Double = 0.0)
+    var eta: Double,
+    val etaDecrement: Double = 0.0)
   extends ColorConstrainedVertex[Int, Int](newId, initialState, newDomain)
   with CompleteSearch[Int]
   with MapUtilityTarget[Int]
@@ -62,17 +62,17 @@ abstract class SAPVertex(
 
 class SAPVertexBuilder(
     randomInitialState: Boolean,
-    ηInitial: Double,
+    etaInitial: Double,
     vertexIdsSchedule: Seq[Int],
-    ηDecrement: Double = 0.0)
+    etaDecrement: Double = 0.0)
   extends VertexBuilder {
   def apply(id: Int, domain: Array[Int]): Vertex[Any, _] = {
     val r = new Random
     val initialState = if (randomInitialState) domain(r.nextInt(domain.size)) else domain.head
-    new SAPVertex(id, initialState, domain, ηInitial, ηDecrement ) {
+    new SAPVertex(id, initialState, domain, etaInitial, etaDecrement ) {
       val vertexIds = vertexIdsSchedule
     }
   }
 
-  override def toString = s"SAP eta=$ηInitial"
+  override def toString = s"SAP eta=$etaInitial"
 }

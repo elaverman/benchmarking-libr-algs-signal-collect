@@ -45,6 +45,10 @@ import com.signalcollect.configuration.ExecutionMode
 import com.signalcollect.evaluation.resulthandling.ConsoleResultHandler
 import java.util.Calendar
 import com.signalcollect.dcopthesis.FileDialect._
+import com.signalcollect.dcopthesis.CSVResultHandler.ValExtractor
+import CSVResultHandler._
+import com.signalcollect.dcopthesis.CSVResultHandler
+import com.signalcollect.dcopthesis.BinaryConstraintGraphProvider
 
 
 // A global stats object that gets updated after each cycle.
@@ -261,13 +265,13 @@ object DcopEvaluation extends App {
 //    new MGMVertexBuilder(randomInitialState=false)
 
 
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=5.0, vertexIdsSchedule=(0 until graphSize)),
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=1.0, vertexIdsSchedule=(0 until graphSize)),
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.5, vertexIdsSchedule=(0 until graphSize)),
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.25, vertexIdsSchedule=(0 until graphSize)),
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.1, vertexIdsSchedule=(0 until graphSize)), 
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.05, vertexIdsSchedule=(0 until graphSize)),
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=0.0, vertexIdsSchedule=(0 until graphSize)) 
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=5.0, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=1.0, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=0.5, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=0.25, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=0.1, vertexIdsSchedule=(0 until graphSize)), 
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=0.05, vertexIdsSchedule=(0 until graphSize)),
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=0.0, vertexIdsSchedule=(0 until graphSize)) 
 //    new GSAPVertexBuilder(randomInitialState=false, vertexIds=(0 until graphSize), interval=10)
 
 
@@ -275,7 +279,7 @@ object DcopEvaluation extends App {
 //    new DSANVertexBuilder(randomInitialState=true, pSchedule=1),
 //    new DSAVertexBuilder(randomInitialState=false, DSAVariant.B, pSchedule = 0.30))
 //    new DSAVertexBuilder(randomInitialState=false, DSAVariant.B, pSchedule = 0.8)
-//    new SAPVertexBuilder(randomInitialState=false, ηInitial=1, vertexIdsSchedule=(0 until graphSize))
+//    new SAPVertexBuilder(randomInitialState=false, etaInitial=1, vertexIdsSchedule=(0 until graphSize))
 //    new GSAPVertexBuilder(randomInitialState=false, vertexIds=(0 until graphSize))
 //    new WRMIVertexBuilder(randomInitialState=false, memory=0.99,  inertia=0.4)
       new WRMIVertexBuilder(randomInitialState=false, memory=0.99,  inertia=0.4)
@@ -337,7 +341,7 @@ object DcopEvaluation extends App {
          // What edgeBuilder to use with this algorithm
          val edgeBuilder = algorithm match {
            case b: MGMVertexBuilder => (x:Int, y: Int) => new MGMEdge(y)
-           case b: MGMWRMIVertexBuilder => (x:Int, y: Int) => new MGMEdge(y)
+           //TODO - uncomment case b: MGMWRMIVertexBuilder => (x:Int, y: Int) => new MGMEdge(y)
            case otherwise => (x: Int, y: Int) => new StateForwarderEdge(y)
          }
 
@@ -375,7 +379,7 @@ object DcopEvaluation extends App {
          itr += 1
   }
 
-  import CSVResultHandler._
+
 
   val now = Calendar.getInstance.getTime
   val resultsFile =
